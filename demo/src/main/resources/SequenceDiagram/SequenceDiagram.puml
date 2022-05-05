@@ -1,0 +1,23 @@
+@startuml
+AuthController -> AuthService : createAccount(userName,pswd,others)
+AuthService -> UserRepository : insertIntoUser(userName,pswd,others)
+AuthService <-- UserRepository : boolean:True/False
+AuthController <-- AuthService : {boolean:True/False, message:""}
+
+
+AuthController -> AuthService : login(userName,pswd)
+AuthService -> UserRepository : findPasswordByUserName(userName,pswd)
+AuthService <-- UserRepository : Password:String
+AuthController <-- AuthService : {boolean:True/False , message:""}
+
+UserController -> UserService : getUserInfo(uuId)
+UserService -> UserRepository : findUserByUserId(userId)
+UserService <-- UserRepository : User:Object
+UserController <-- UserService : {User :"", message:""}
+
+UserController -> UserService : updateUserInfo(name,email,phone,uuId)
+UserService -> UserRepository : updateUserByUserId(name,email,phone,uuId)
+UserService <-- UserRepository : boolean:True/False
+UserController <-- UserService : {boolean:True/False , message:""}
+
+@enduml
