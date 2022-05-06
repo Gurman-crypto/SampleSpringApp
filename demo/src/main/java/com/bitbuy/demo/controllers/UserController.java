@@ -5,6 +5,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +27,7 @@ public class UserController {
 	
 	// Secure end point for user to get their personal information
 	@GetMapping(value = PATH_User)
+	@PreAuthorize("hasRole('DEMOUSER')")
 	public User getUserInfo( @PathVariable long uuid) {
 		User user = userService.getUserInfo(uuid);
 		return user;
@@ -33,6 +35,7 @@ public class UserController {
 
 	// Secure end point for user to update their personal information
 	@PostMapping(value = PATH_User, produces = "application/json")
+	@PreAuthorize("hasRole('DEMOUSER')")
 	public String updateUserInfo(@RequestBody @Valid UserRequest requestBody, @PathVariable long uuid) {
         boolean flag= userService.updateUserInfo(uuid, requestBody);
         

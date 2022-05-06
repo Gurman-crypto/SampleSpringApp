@@ -11,19 +11,29 @@ import javax.validation.constraints.Pattern;
 public class User {
 
 	@Id
-	@Column(name ="user_Id" , updatable = false )
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "user_Id", updatable = false)
 	private long userId;
 
-	@Pattern(regexp = "^(?:[a-zA-Z0-9]+)@(?:[a-zA-Z0-9]+)+(?:\\.[a-zA-Z]*){1,2}$" , message ="Invalid email")
+	@Pattern(regexp = "^(?:[a-zA-Z0-9]+)@(?:[a-zA-Z0-9]+)+(?:\\.[a-zA-Z]*){1,2}$", message = "Invalid email")
 	private String email;
 
-	@Pattern(regexp = "^\\(\\+\\d\\)\\d{3}-\\d{3}-\\d{4}$" , message ="Invalid Phone No")
+	@Pattern(regexp = "^\\(\\+\\d\\)\\d{3}-\\d{3}-\\d{4}$", message = "Invalid Phone No")
 	private String phone;
 
 	private String username;
 
 	private String password;
-	
+
+	public User(long userId, String email, String phone, String username, String password) {
+		super();
+		this.userId = userId;
+		this.email = email;
+		this.phone = phone;
+		this.username = username;
+		this.password = password;
+	}
+
 	public User() {
 		super();
 	}
@@ -64,5 +74,4 @@ public class User {
 		this.password = password;
 	}
 
-	
 }

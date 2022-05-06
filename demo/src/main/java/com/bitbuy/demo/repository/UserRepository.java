@@ -12,10 +12,14 @@ import org.springframework.stereotype.Repository;
 import com.bitbuy.demo.entity.User;
 
 @Repository
-public interface UserRepository extends CrudRepository<User, Long> {
+public interface UserRepository extends JpaRepository<User, Long> {
 
 	@Query(value = "SELECT u FROM User u where userId = :userId")
 	User findUserByUserId(@Param("userId") long userId);
+	
+	@Query(value = "SELECT u FROM User u where email = :email")
+	List<User> findByEmail(@Param("email") String email);
+	
 
 	@Query(value = "SELECT password FROM User u where username = :username")
 	String findPasswordByUserName(@Param("username") String username);
